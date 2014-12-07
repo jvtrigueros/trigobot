@@ -22,13 +22,30 @@ function controller(ch, key) {
       process.exit()
     }
 
+    board.wait(800, function() {
+      wheels.both.stop()
+    })
+
     switch(key.name) {
       case 'up':
         wheels.both.cw()
         break
+
+      case 'left':
+        wheels.right.cw()
+        break;
+
+      case 'right':
+        wheels.left.cw()
+        break;
+
       case 'down':
+        wheels.both.ccw()
+        break;
+
+      case 'space':
         wheels.both.stop()
-        break
+        break;
     }
   }
 }
@@ -39,15 +56,13 @@ board.on("ready", function () {
   // Create two servos as our wheels
   wheels.left = new five.Servo({
     pin: 8,
-    type: "continuous",
-    debug: true
+    type: "continuous"
   });
 
   wheels.right = new five.Servo({
     pin: 9,
     type: "continuous",
-    isInverted: true, // one wheel mounted inverted of the other
-    debug: true
+    isInverted: true // one wheel mounted inverted of the other
   });
 
   wheels.both = new five.Servos().stop() // reference both together
