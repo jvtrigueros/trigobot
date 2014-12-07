@@ -22,10 +22,6 @@ function controller(ch, key) {
       process.exit()
     }
 
-    board.wait(800, function() {
-      wheels.both.stop()
-    })
-
     switch(key.name) {
       case 'up':
         wheels.both.cw()
@@ -66,12 +62,5 @@ board.on("ready", function () {
   });
 
   wheels.both = new five.Servos().stop() // reference both together
-  // Add servos to REPL (optional)
-//  this.repl.inject({
-//    wheels: wheels
-//  })
 
-  // Drive forwards
-  // Note, cw() vs ccw() might me different for you
-  // depending on how you mount the servos
 })
