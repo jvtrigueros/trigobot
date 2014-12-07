@@ -1,0 +1,21 @@
+{
+  "name": "trigobot",
+  "version": "0.0.0",
+  "description": "Sumobot made by trigoman.",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sumo",
+    "pawel",
+    "bot",
+    "nodeconf"
+  ],
+  "author": "Jose V. Trigueros",
+  "license": "MIT",
+  "dependencies": {
+    "imp-io": "^0.1.1",
+    "johnny-five": "^0.8.32"
+  }
+}
