@@ -42,46 +42,26 @@ process.stdin.on("keypress", _.bind(controller, wheels));
 process.stdin.setRawMode(true);
 process.stdin.resume();
 
-function up() {
-  wheels.both.cw()
-}
-
-function left() {
-  wheels.right.cw()
-}
-
-function right() {
-  wheels.left.cw()
-}
-
-function down() {
-  wheels.both.ccw()
-}
-
-function stop() {
-  wheels.both.stop()
-}
-
 function commandSelector(cmd) {
   switch (cmd) {
     case 'up':
-      up();
+      wheels.both.cw()
       break
 
     case 'left':
-      left();
+      wheels.right.cw()
       break;
 
     case 'right':
-      right();
+      wheels.left.cw()
       break;
 
     case 'down':
-      down();
+      wheels.both.ccw()
       break;
 
     case 'space':
-      stop();
+      wheels.both.stop()
       break;
   }
 }
