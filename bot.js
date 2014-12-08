@@ -2,21 +2,29 @@ var five = require('johnny-five')
   , Imp = require('imp-io')
   , keypress = require('keypress')
   , _ = require('lodash')
-  , board
-  , wheels
   , express = require('express')
   , app = express()
+  , socketsServer = require('http').Server(app)
+  , io = require('socket.io')(socketsServer)
+  , board
+  , wheels
+  ;
 
+app.use(express.static(__dirname + '/robot'))
+app.use('/bower_components', express.static(__dirname + '/bower_components'))
 app.get('/', function (req, res) {
   res.send('Hello World!')
 })
 
-var commandExecutor = function (req, res, fn) {
-  res.send('up')
-}
-app.get('/up', up)
+io.on('connection', function (socket) {
+  socket.emit('command', { hello: 'world' })
 
-var server = app.listen(3000, function () {
+  socket.on('command', function (data) {
+    commandSelector(data.command)
+  })
+})
+
+var server = socketsServer.listen(3000, function () {
 
   var host = server.address().address
   var port = server.address().port
@@ -54,34 +62,38 @@ function stop() {
   wheels.both.stop()
 }
 
+function commandSelector(cmd) {
+  switch (cmd) {
+    case 'up':
+      up();
+      break
+
+    case 'left':
+      left();
+      break;
+
+    case 'right':
+      right();
+      break;
+
+    case 'down':
+      down();
+      break;
+
+    case 'space':
+      stop();
+      break;
+  }
+}
+
 function controller(ch, key) {
   if(key) {
-    console.log(key.name)
+    console.log('key', key.name)
     if (key.name === 'escape') {
       process.exit()
     }
 
-    switch(key.name) {
-      case 'up':
-        up();
-        break
-
-      case 'left':
-        left();
-        break;
-
-      case 'right':
-        right();
-        break;
-
-      case 'down':
-        down();
-        break;
-
-      case 'space':
-        stop();
-        break;
-    }
+    commandSelector(key.name);
   }
 }
 
