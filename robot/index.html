@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Robot Control</title>
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="/bower_components/bootswatch-dist/css/bootstrap.min.css">
+  <script src="/bower_components/bootswatch-dist/js/bootstrap.min.js"></script>
+
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Controlling the <strong>trigobot!</strong></h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-group btn-group-justified">
+          <a href="#" id="left" role="button" class="btn btn-info">
+            Left
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+
+          <a href="#" id="up" role="button" class="btn btn-info">
+              Forward
+            <span class="glyphicon glyphicon-chevron-up"></span>
+          </a>
+
+          <a href="#" id="down" role="button" class="btn btn-info">
+            Backward
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </a>
+
+          <a href="#" id="right" role="button" class="btn btn-info">
+            Right
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <a href="/stop" role="button" class="btn btn-danger btn-block">Stop!</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    var socket = io('http://localhost');
+    socket.on('command', function (data) {
+      console.log(data)
+      socket.emit('my other event', { my: 'data' })
+    })
+
+
+    $('#up, #down, #left, #right').click(function () {
+      socket.emit('command', {command: this.id})
+    })
+
+  </script>
+</body>
+</html>
