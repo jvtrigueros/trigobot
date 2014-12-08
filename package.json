@@ -2,8 +2,9 @@
   "name": "trigobot",
   "version": "0.0.0",
   "description": "Sumobot made by trigoman.",
-  "main": "bot.js",
+  "main": "node bot.js",
   "scripts": {
+    "postinstall": "./node_modules/.bin/bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -20,6 +21,7 @@
     "keypress": "^0.2.1",
     "lodash": "^2.4.1",
     "express": "^4.10.4",
-    "socket.io": "^1.2.1"
+    "socket.io": "^1.2.1",
+    "bower": "^1.3.12"
   }
 }

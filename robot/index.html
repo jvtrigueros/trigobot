@@ -52,16 +52,9 @@
   </div>
   <script>
     var socket = io('http://localhost');
-    socket.on('command', function (data) {
-      console.log(data)
-      socket.emit('my other event', { my: 'data' })
-    })
-
-
     $('#up, #down, #left, #right').click(function () {
       socket.emit('command', {command: this.id})
     })
-
   </script>
 </body>
 </html>
