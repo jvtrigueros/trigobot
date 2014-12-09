@@ -1,6 +1,6 @@
 var five = require('johnny-five')
   , Imp = require('imp-io')
-  , keypress = require('keypress')
+//  , keypress = require('keypress')
   , _ = require('lodash')
   , express = require('express')
   , app = express()
@@ -25,10 +25,8 @@ io.on('connection', function (socket) {
 })
 
 var server = socketsServer.listen(3000, function () {
-
   var host = server.address().address
   var port = server.address().port
-
   console.log('Example app listening at http://%s:%s', host, port)
 })
 
@@ -37,10 +35,10 @@ board = new five.Board({
   repl: false
 })
 
-keypress(process.stdin);
+/*keypress(process.stdin);
 process.stdin.on("keypress", _.bind(controller, wheels));
 process.stdin.setRawMode(true);
-process.stdin.resume();
+process.stdin.resume();*/
 
 function commandSelector(cmd) {
   switch (cmd) {
@@ -66,7 +64,7 @@ function commandSelector(cmd) {
   }
 }
 
-function controller(ch, key) {
+/*function controller(ch, key) {
   if(key) {
     console.log('key', key.name)
     if (key.name === 'escape') {
@@ -75,7 +73,7 @@ function controller(ch, key) {
 
     commandSelector(key.name);
   }
-}
+}*/
 
 board.on("ready", function () {
   wheels = {};
