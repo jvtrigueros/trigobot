@@ -52,7 +52,8 @@
   </div>
   <script>
     var socket = io('http://localhost');
-    $('#up, #down, #left, #right').click(function () {
+    $('#up, #down, #left, #right, #stop').click(function () {
+      console.log('Command Sent', this.id)
       socket.emit('command', {command: this.id})
     })
   </script>
